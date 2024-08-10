@@ -1,0 +1,9 @@
+environment: test
+service:
+  type: LoadBalancer
+  port: 8081
+configController:
+  enabled: false
+
+configMap:
+  name: todo-web-config

@@ -1,0 +1,43 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: default-service-account-reader-lab  
+  labels:
+    kiamol: ch17-lab
+rules:
+- apiGroups: [""] #core
+  resources: ["serviceaccounts"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kube-explorer-lab-service-accounts-default
+  namespace: default 
+  labels:
+    kiamol: ch17-lab
+subjects:
+- kind: ServiceAccount
+  name: kube-explorer-lab
+  namespace: kiamol-ch17-lab
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: default-service-account-reader-lab
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kube-explorer-lab-service-accounts-ch17-lab
+  namespace: kiamol-ch17-lab 
+  labels:
+    kiamol: ch17-lab
+subjects:
+- kind: ServiceAccount
+  name: kube-explorer-lab
+  namespace: kiamol-ch17-lab
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: default-service-account-reader-lab
+---

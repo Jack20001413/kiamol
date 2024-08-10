@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1 
+apiVersion: networking.k8s.io/v1 
 kind: Ingress
 metadata:
   name: todo2-new
@@ -6,7 +6,6 @@ metadata:
     kiamol: ch15
   annotations:
     kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.pathmatcher: Path
     traefik.ingress.kubernetes.io/router.tls: "true"    
     traefik.ingress.kubernetes.io/router.tls.certresolver: default
 spec:
@@ -15,11 +14,14 @@ spec:
     http:
       paths:
       - path: /new
+        pathType: Exact
         backend:
-          serviceName: todo-web-sticky
-          servicePort: 80
+          service:
+            name: todo-web-sticky
+            port:
+              number: 80
 ---
-apiVersion: networking.k8s.io/v1beta1 
+apiVersion: networking.k8s.io/v1 
 kind: Ingress
 metadata:
   name: todo2-static
@@ -27,7 +29,6 @@ metadata:
     kiamol: ch15
   annotations:
     kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.pathmatcher: PathPrefix
     traefik.ingress.kubernetes.io/router.tls: "true"    
     traefik.ingress.kubernetes.io/router.tls.certresolver: default
 spec:
@@ -36,11 +37,14 @@ spec:
     http:
       paths:
       - path: /static
+        pathType: Prefix
         backend:
-          serviceName: todo-web
-          servicePort: 80
+          service:
+            name: todo-web
+            port:
+              number: 80
 ---
-apiVersion: networking.k8s.io/v1beta1 
+apiVersion: networking.k8s.io/v1 
 kind: Ingress
 metadata:
   name: todo2
@@ -48,7 +52,6 @@ metadata:
     kiamol: ch15
   annotations:
     kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.pathmatcher: Path
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.tls.certresolver: default
 spec:
@@ -57,10 +60,16 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Exact
         backend:
-          serviceName: todo-web
-          servicePort: 80
+          service:
+            name: todo-web
+            port:
+              number: 80
       - path: /list
+        pathType: Exact
         backend:
-          serviceName: todo-web
-          servicePort: 80
+          service:
+            name: todo-web
+            port:
+              number: 80

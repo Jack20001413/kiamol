@@ -15,14 +15,14 @@ spec:
     spec:
       containers:
         - name: web
-          image: kiamol/ch03-numbers-web 
+          image: kiamol/ch03-numbers-web:latest-linux-amd64
           env:
           - name: http_proxy
             value: http://localhost:1080
           - name: RngApi__Url
             value: http://localhost/api
         - name: proxy
-          image: kiamol/ch07-simple-proxy          
+          image: kiamol/ch07-simple-proxy:latest-linux-amd64         
           env:
           - name: Proxy__Port
             value: "1080"

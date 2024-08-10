@@ -25,3 +25,25 @@ spec:
               value: admission-webhook-secret
             - name: SECRET_LABEL
               value: ch16
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: secret-admin
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cert-generator
+subjects:
+- kind: ServiceAccount
+  name: default 
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: secret-admin
+  apiGroup: rbac.authorization.k8s.io

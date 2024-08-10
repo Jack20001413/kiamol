@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: kiamol/ch04-todo-list
+          image: jackdock777/kiamol-ch04-todo-list
           env:
           - name: ASPNETCORE_ENVIRONMENT
             value: Test

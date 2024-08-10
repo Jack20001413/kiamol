@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pi-web-dev
+  namespace: pi-dev
+  labels:
+    kiamol: ch12-lab
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: pi-web-dev
+  template:
+    metadata:
+      labels:
+        app: pi-web-dev
+    spec:
+      containers:
+        - image: kiamol/ch05-pi
+          command: ["dotnet", "Pi.Web.dll", "-m", "web"]
+          name: web
+          ports:
+            - containerPort: 80
+              name: http
+          resources:
+            limits:
+              cpu: 75m
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pi-web-test
+  namespace: pi-test
+  labels:
+    kiamol: ch12-lab
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: pi-web-test
+  template:
+    metadata:
+      labels:
+        app: pi-web-test
+    spec:
+      containers:
+        - image: kiamol/ch05-pi
+          command: ["dotnet", "Pi.Web.dll", "-m", "web"]
+          name: web
+          ports:
+            - containerPort: 80
+              name: http
+          resources:
+            limits:
+              cpu: 75m
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pi-web-uat
+  namespace: pi-uat
+  labels:
+    kiamol: ch12-lab
+spec:
+  replicas: 8
+  selector:
+    matchLabels:
+      app: pi-web-uat
+  template:
+    metadata:
+      labels:
+        app: pi-web-uat
+    spec:
+      containers:
+        - image: kiamol/ch05-pi
+          command: ["dotnet", "Pi.Web.dll", "-m", "web"]
+          name: web
+          ports:
+            - containerPort: 80
+              name: http
+          resources:
+            limits:
+              cpu: 250m
+---

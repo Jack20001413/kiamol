@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: numbers-api
+  labels:
+    kiamol: ch06-lab
+    rng: hw
+spec:
+  selector:
+    matchLabels:
+      app: numbers-api
+  template:
+    metadata:
+      labels:
+        app: numbers-api
+    spec:
+      nodeSelector:
+        rng: hw
+      containers:
+      - name: api
+        image: kiamol/ch03-numbers-api
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
