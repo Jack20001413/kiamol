@@ -52,6 +52,7 @@ spec:
         app: todo-web
         version: 0.16.0
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: web
           image: kiamol/ch04-todo-list

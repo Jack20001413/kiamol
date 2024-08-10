@@ -14,6 +14,19 @@ spec:
       labels:
         app: pi-web
     spec:
+      initContainers:
+        - name: init-config
+          image: kiamol/ch03-sleep
+          command: ['sh', '-c', "echo '#!/bin/sh\ndotnet Pi.Web.dll -m web' > /config/startup.sh; chmod +x /config/startup.sh"]
+          volumeMounts:
+            - mountPath: /config
+              name: init-config
+        - name: init-version
+          image: kiamol/ch03-sleep
+          command: ['sh', '-c', 'echo "3.4.0" > /config/version.txt']
+          volumeMounts:
+            - mountPath: /config
+              name: init-config
       containers:
         - image: kiamol/ch05-pi
           command: ["/scripts/startup.sh"]
@@ -21,3 +34,18 @@ spec:
           ports:
             - containerPort: 80
               name: http
+          volumeMounts:
+            - mountPath: /scripts
+              name: init-config
+        - image: kiamol/ch03-sleep
+          name: version
+          command: ['sh', '-c', 'while true; do echo -e "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 9\n\n$(cat /config/version.txt)" | nc -l -p 8080; done']
+          ports:
+            - containerPort: 8080
+              name: http
+          volumeMounts:
+            - mountPath: /config
+              name: init-config
+      volumes:
+        - name: init-config
+          emptyDir: {}

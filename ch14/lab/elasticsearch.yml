@@ -1,7 +1,15 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kiamol-ch14-lab
+  labels:
+    kiamol: ch14
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: elasticsearch
+  namespace: kiamol-ch14-lab
 spec:
   selector:
     matchLabels:
@@ -10,7 +18,18 @@ spec:
     metadata:
       labels:
         app: elasticsearch
+        prometheus.io/port: "9114"
+        version: "1.0.0"
     spec:
       containers:
       - image: kiamol/ch13-elasticsearch
         name: elasticsearch
+        ports:
+          - containerPort: 9200
+      - image: quay.io/prometheuscommunity/elasticsearch-exporter:latest
+        name: elasticsearch-exporter
+        command:
+          - '/bin/elasticsearch_exporter'
+          - '--es.uri=http://localhost:9200'
+        ports:
+          - containerPort: 9114

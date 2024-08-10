@@ -63,7 +63,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: kiamol/ch04-todo-list
+          image: jackdock777/kiamol-ch04-todo-list
           volumeMounts:
             - name: config
               mountPath: "/app/config"

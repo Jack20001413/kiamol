@@ -9,6 +9,6 @@ data:
   config.json: |-
     {
       "ConfigController": {
-        "Enabled" : false             
+        "Enabled" : {{ .Values.configController.enabled }}             
       }
     } 

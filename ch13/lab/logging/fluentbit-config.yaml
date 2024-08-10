@@ -33,6 +33,11 @@ data:
         Merge_Log           On
         K8S-Logging.Parser  On
 
+    [FILTER]
+        Name                grep
+        Match               kube.kiamol-ch13-lab.web.vweb*
+        Exclude             code 304
+
   output.conf: |
     [OUTPUT]
         Name            es

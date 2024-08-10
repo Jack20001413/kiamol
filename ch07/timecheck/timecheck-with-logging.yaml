@@ -22,7 +22,7 @@ spec:
             - name: config-map
               mountPath: /config-in
             - name: config-dir
-              mountPath: /config-out
+              mountPath: /config-out  
       containers:
         - name: timecheck
           image: kiamol/ch07-timecheck

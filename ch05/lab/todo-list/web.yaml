@@ -31,3 +31,10 @@ spec:
             value: Sqlite
           - name: ConnectionStrings__ToDoDb
             value: "Filename=/data/todo-list-lab.db"
+          volumeMounts:
+          - mountPath: "/data"
+            name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: todo-web-lab

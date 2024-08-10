@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: pi-uat
+  namespace: pi-uat
+spec:
+  hard:
+    limits.cpu: "6"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: pi-dev
+  namespace: pi-dev
+spec:
+  hard:
+    limits.cpu: "3"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: pi-test
+  namespace: pi-test
+spec:
+  hard:
+    limits.cpu: "3"

@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: todo
+  namespace: kiamol-ch15-lab
+  labels:
+    kiamol: ch15-lab
+  annotations:
+    nginx.ingress.kubernetes.io/limit-rps: "10"
+spec:
+  ingressClassName: nginx-lab
+  rules:
+  - host: www.apod.local
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: apod-web
+            port:
+              number: 80 
+  - host: api.apod.local
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: apod-api
+            port:
+              number: 80 
