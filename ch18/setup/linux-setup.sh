@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DOCKER_VERSION="5:19.03.12~3-0~ubuntu-focal"
-KUBERNETES_VERSION="1.18.5-00"
+KUBERNETES_VERSION="1.28"
 hostname -I | awk '{print $NF}' > /tmp/ip.txt
 
 # turn off swap - for the Kubelet
